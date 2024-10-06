@@ -1,3 +1,3 @@
 Grupa:
 Maciej Zientara 99948
-Katarzyna Kaszuba 99693
+Katarzyna Kołoda 99693
