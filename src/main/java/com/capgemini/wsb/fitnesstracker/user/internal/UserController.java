@@ -35,4 +35,9 @@ class UserController {
         return null;
     }
 
+    @GetMapping("/{id}")
+    public UserDto getUserById(@PathVariable Long id) {
+        // not safe! - 'Optional.get()' without 'isPresent()' check
+        return userMapper.toDto(userService.getUser(id).get());
+    }
 }
