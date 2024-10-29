@@ -4,6 +4,7 @@ import com.capgemini.wsb.fitnesstracker.user.api.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -19,6 +20,14 @@ interface UserRepository extends JpaRepository<User, Long> {
         return findAll().stream()
                         .filter(user -> Objects.equals(user.getEmail(), email))
                         .findFirst();
+    }
+
+
+    default List<User> findAllByEmail(String email) {
+        return findAll().stream()
+//                        change equals to something like "email.to_lower() in user.getEmail().to_lower()"
+                        .filter(user -> Objects.equals(user.getEmail(), email))
+                        .toList();
     }
 
 }

@@ -1,10 +1,12 @@
 package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import com.capgemini.wsb.fitnesstracker.user.api.User;
+import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/users")
@@ -46,4 +48,13 @@ class UserController {
         // not safe! - 'Optional.get()' without 'isPresent()' check
         return userMapper.toDto(userService.getUser(id).get());
     }
+
+    @GetMapping("/email")
+    public List<IdEmailDto> getUsersByEmail(@RequestParam String email) {
+        return userService.getUsersByEmail(email)
+                .stream()
+                .map(userMapper::toIdEmailDto)
+                .toList();
+    }
+
 }

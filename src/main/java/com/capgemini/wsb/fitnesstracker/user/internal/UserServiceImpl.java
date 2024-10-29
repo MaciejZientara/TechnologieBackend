@@ -17,6 +17,10 @@ class UserServiceImpl implements UserService, UserProvider {
 
     private final UserRepository userRepository;
 
+
+
+
+
     @Override
     public User createUser(final User user) {
         log.info("Creating User {}", user);
@@ -41,4 +45,7 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.findAll();
     }
 
+    public List<User> getUsersByEmail(final String email) {
+        return userRepository.findAllByEmail(email);
+    }
 }

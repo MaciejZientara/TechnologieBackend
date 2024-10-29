@@ -29,4 +29,10 @@ class UserMapper {
                 user.getLastName());
     }
 
+    IdEmailDto toIdEmailDto(User user){
+        return new IdEmailDto(
+                user.getId(),
+                user.getEmail());
+    }
+
 }
