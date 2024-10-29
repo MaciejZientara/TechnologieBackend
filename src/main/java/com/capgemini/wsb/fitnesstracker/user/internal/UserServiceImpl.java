@@ -31,6 +31,15 @@ class UserServiceImpl implements UserService, UserProvider {
     }
 
     @Override
+    public void deleteUser(final Long userId) {
+//        Optional<User> tmp = userRepository.findById(userId);
+//        if(tmp.isPresent()){
+//            userRepository.delete(tmp);
+//        }
+        userRepository.deleteById(userId);
+    }
+
+    @Override
     public Optional<User> getUser(final Long userId) {
         return userRepository.findById(userId);
     }
@@ -45,6 +54,7 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.findAll();
     }
 
+    @Override
     public List<User> getUsersByEmail(final String email) {
         return userRepository.findAllByEmail(email);
     }
