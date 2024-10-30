@@ -23,11 +23,9 @@ interface UserRepository extends JpaRepository<User, Long> {
                         .findFirst();
     }
 
-
     default List<User> findAllByEmail(String email) {
         return findAll().stream()
-//                        change equals to something like "email.to_lower() in user.getEmail().to_lower()"
-                        .filter(user -> Objects.equals(user.getEmail(), email))
+                        .filter(user -> user.getEmail().toLowerCase().contains(email.toLowerCase()))
                         .toList();
     }
 
