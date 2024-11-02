@@ -38,7 +38,7 @@ class UserServiceImpl implements UserService, UserProvider {
     }
 
     @Override
-    public List<User> findAllUsersOlder(LocalDate time) { return userRepository.findOlder(time); }
+    public List<User> findAllUsersOlderThan(LocalDate time) { return userRepository.findOlder(time); }
 
     @Override
     public List<User> getUsersByEmail(final String email) {

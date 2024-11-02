@@ -1,10 +1,10 @@
 package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import com.capgemini.wsb.fitnesstracker.user.api.User;
-import jakarta.validation.constraints.Null;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -57,4 +57,11 @@ class UserController {
                 .toList();
     }
 
+    @GetMapping("/older/{time}")
+    public List<UserDto> getUsersOlderThan(@PathVariable LocalDate time) {
+        return userService.findAllUsersOlderThan(time)
+                .stream()
+                .map(userMapper::toDto)
+                .toList();
+    }
 }

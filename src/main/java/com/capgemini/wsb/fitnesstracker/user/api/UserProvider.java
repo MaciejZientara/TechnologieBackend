@@ -33,5 +33,5 @@ public interface UserProvider {
 
     List<User> getUsersByEmail(final String email);
 
-    List<User> findAllUsersOlder(LocalDate time);
+    List<User> findAllUsersOlderThan(LocalDate time);
 }
