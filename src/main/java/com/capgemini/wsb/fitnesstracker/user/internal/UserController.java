@@ -2,6 +2,7 @@ package com.capgemini.wsb.fitnesstracker.user.internal;
 
 import com.capgemini.wsb.fitnesstracker.user.api.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -43,20 +44,22 @@ class UserController {
     }
 
     /**
-     * Adds a new user based on provided user data.
+     * Adds a new user based on provided user data and persists it in the database.
      *
      * @param userDto The {@link UserDto} containing details of the user to add
-     * @return The created {@link User} entity
-     * @throws InterruptedException If the operation is interrupted
+     * @return The created {@link UserDto} containing generated ID and stored data
      */
     @PostMapping
-    public User addUser(@RequestBody UserDto userDto) throws InterruptedException {
-
+    @ResponseStatus(HttpStatus.CREATED)
+    public UserDto addUser(@RequestBody UserDto userDto) throws InterruptedException {
         // Demonstracja how to use @RequestBody
-        System.out.println("User with e-mail: " + userDto.email() + "passed to the request");
+//        System.out.println("User with e-mail: " + userDto.email() + "passed to the request");
 
         // TODO: saveUser with Service and return User
-        return null;
+//        return null;
+        User user = userMapper.toEntity(userDto);
+        User createdUser = userService.createUser(user);
+        return userMapper.toDto(createdUser);
     }
 
     /**
