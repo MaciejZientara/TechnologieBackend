@@ -27,11 +27,23 @@ public interface UserProvider {
     /**
      * Retrieves all users.
      *
-     * @return An {@link Optional} containing the all users,
+     * @return A {@link List} containing all users
      */
     List<User> findAllUsers();
 
+    /**
+     * Retrieves all users who have the specified email.
+     *
+     * @param email The email to search for users
+     * @return A {@link List} containing users with the specified email, or an empty list if none found
+     */
     List<User> getUsersByEmail(final String email);
 
+    /**
+     * Retrieves all users who were born before the specified date.
+     *
+     * @param time The date to compare users' birth dates against
+     * @return A {@link List} containing users born before the specified date, or an empty list if none found
+     */
     List<User> findAllUsersOlderThan(LocalDate time);
 }

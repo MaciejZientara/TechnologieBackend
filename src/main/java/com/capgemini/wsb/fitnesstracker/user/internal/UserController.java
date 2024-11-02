@@ -16,6 +16,11 @@ class UserController {
 
     private final UserMapper userMapper;
 
+    /**
+     * Retrieves all users.
+     *
+     * @return A {@link List} of {@link UserDto} containing details of all users
+     */
     @GetMapping
     public List<UserDto> getAllUsers() {
         return userService.findAllUsers()
@@ -24,6 +29,11 @@ class UserController {
                           .toList();
     }
 
+    /**
+     * Retrieves basic information (ID, first name, last name) about all users.
+     *
+     * @return A {@link List} of {@link UserSimpleDto} containing basic user information
+     */
     @GetMapping("/simple")
     public List<UserSimpleDto> getAllBasicInformationAboutUsers() {
         return userService.findAllUsers()
@@ -32,6 +42,13 @@ class UserController {
                           .toList();
     }
 
+    /**
+     * Adds a new user based on provided user data.
+     *
+     * @param userDto The {@link UserDto} containing details of the user to add
+     * @return The created {@link User} entity
+     * @throws InterruptedException If the operation is interrupted
+     */
     @PostMapping
     public User addUser(@RequestBody UserDto userDto) throws InterruptedException {
 
@@ -42,6 +59,13 @@ class UserController {
         return null;
     }
 
+    /**
+     * Retrieves a user by their ID.
+     *
+     * @param id The ID of the user to retrieve
+     * @return A {@link UserDto} containing details of the user
+     * @throws IllegalArgumentException if the user with specified ID is not found
+     */
     @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable Long id) {
         return userService.getUser(id)
@@ -49,6 +73,12 @@ class UserController {
                 .orElseThrow(() -> new IllegalArgumentException("User not found!"));
     }
 
+    /**
+     * Searches for users by email, returning only ID and email for each matching user.
+     *
+     * @param email The email (or part of it) to search for
+     * @return A {@link List} of {@link IdEmailDto} containing ID and email of matching users
+     */
     @GetMapping("/email")
     public List<IdEmailDto> getUsersByEmail(@RequestParam String email) {
         return userService.getUsersByEmail(email)
@@ -57,6 +87,12 @@ class UserController {
                 .toList();
     }
 
+    /**
+     * Retrieves all users who were born before the specified date.
+     *
+     * @param time The date to compare users' birth dates against
+     * @return A {@link List} of {@link UserDto} containing users born before the specified date
+     */
     @GetMapping("/older/{time}")
     public List<UserDto> getUsersOlderThan(@PathVariable LocalDate time) {
         return userService.findAllUsersOlderThan(time)

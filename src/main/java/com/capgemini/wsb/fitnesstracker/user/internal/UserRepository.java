@@ -23,12 +23,24 @@ interface UserRepository extends JpaRepository<User, Long> {
                         .findFirst();
     }
 
+    /**
+     * Searches for users whose email contains the specified text, case-insensitive.
+     *
+     * @param email The partial email to search for
+     * @return A {@link List} containing users with emails matching the specified text, or an empty list if none matched
+     */
     default List<User> findAllByEmail(String email) {
         return findAll().stream()
                         .filter(user -> user.getEmail().toLowerCase().contains(email.toLowerCase()))
                         .toList();
     }
 
+    /**
+     * Retrieves all users who were born before the specified date.
+     *
+     * @param time The date to compare users' birth dates against
+     * @return A {@link List} containing users born before the specified date, or an empty list if none matched
+     */
     default List<User> findOlder(LocalDate time){
         return findAll().stream()
                 .filter(user -> user.getBirthdate().isBefore(time))
