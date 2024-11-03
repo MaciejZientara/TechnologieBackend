@@ -103,4 +103,9 @@ class UserController {
                 .map(userMapper::toDto)
                 .toList();
     }
+
+    @PutMapping("/{id}")
+    public void updateUserById(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
+        userService.updateUserById(id, updateUserDto);
+    }
 }

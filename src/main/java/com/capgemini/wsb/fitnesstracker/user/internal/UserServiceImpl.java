@@ -100,4 +100,13 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.findAll();
     }
 
+    @Override
+    public void updateUserById(Long id, UpdateUserDto updateUserDto) {
+        User userRef = userRepository.getReferenceById(id);
+        userRef.UpdateUser(updateUserDto.firstName(),
+                updateUserDto.lastName(),
+                updateUserDto.birthdate(),
+                updateUserDto.email());
+    }
+
 }
