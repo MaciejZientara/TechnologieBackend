@@ -109,6 +109,8 @@ class UserServiceImpl implements UserService, UserProvider {
                 updateUserDto.lastName(),
                 updateUserDto.birthdate(),
                 updateUserDto.email());
+
+        userRepository.save(userRef);
     }
 
 }
