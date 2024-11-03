@@ -3,6 +3,7 @@ package com.capgemini.wsb.fitnesstracker.user.internal;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -113,5 +114,17 @@ class UserController {
     @PutMapping("/{id}")
     public void updateUserById(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
         userService.updateUserById(id, updateUserDto);
+    }
+
+    /**
+     * Deletes a {@link User} entity identified by the given ID.
+     *
+     * @param id The ID of the user to be deleted
+     * @return status "no content"
+     */
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUserById(@PathVariable Long id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }
