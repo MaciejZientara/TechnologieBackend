@@ -23,5 +23,11 @@ public interface UserService {
      */
     void deleteUser(final Long userId);
 
+    /**
+     * Get reference to User by ID, update all User data except ID.
+     *
+     * @param id ID of User to update
+     * @param updateUserDto data of User to update (first and last name, birthdate and email)
+     */
     void updateUserById(Long id, UpdateUserDto updateUserDto);
 }

@@ -100,6 +100,12 @@ class UserServiceImpl implements UserService, UserProvider {
         return userRepository.findAll();
     }
 
+    /**
+     * Get reference to User by ID, update all User data except ID.
+     *
+     * @param id ID of User to update
+     * @param updateUserDto data of User to update (first and last name, birthdate and email)
+     */
     @Override
     public void updateUserById(Long id, UpdateUserDto updateUserDto) {
         User userRef = userRepository.getReferenceById(id);

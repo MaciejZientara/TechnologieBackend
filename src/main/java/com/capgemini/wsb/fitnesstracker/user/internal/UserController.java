@@ -104,6 +104,12 @@ class UserController {
                 .toList();
     }
 
+    /**
+     * Get reference to User by ID, update all User data except ID.
+     *
+     * @param id ID of User to update
+     * @param updateUserDto data of User to update (first and last name, birthdate and email)
+     */
     @PutMapping("/{id}")
     public void updateUserById(@PathVariable Long id, @RequestBody UpdateUserDto updateUserDto) {
         userService.updateUserById(id, updateUserDto);
