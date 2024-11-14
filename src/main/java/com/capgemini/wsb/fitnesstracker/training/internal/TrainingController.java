@@ -53,7 +53,7 @@ public class TrainingController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public TrainingDto addTraining(@RequestBody TrainingDto trainingDto) throws InterruptedException {
-        Training training = trainingMapper.toEntity(TrainingDto);
+        Training training = trainingMapper.toEntity(trainingDto);
         Training createdTraining = trainingService.createTraining(training);
         return trainingMapper.toDto(createdTraining);
     } // utworzenie nowego treningu
