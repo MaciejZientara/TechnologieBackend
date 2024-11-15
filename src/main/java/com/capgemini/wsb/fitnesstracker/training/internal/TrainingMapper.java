@@ -17,6 +17,16 @@ public class TrainingMapper {
         );
     }
 
+    Training toEntity(TrainingDto trainingDto){
+        return new Training(trainingDto.user(),
+                trainingDto.startTime(),
+                trainingDto.endTime(),
+                trainingDto.activityType(),
+                trainingDto.distance(),
+                trainingDto.averageSpeed()
+        );
+    }
+
 }
 
 

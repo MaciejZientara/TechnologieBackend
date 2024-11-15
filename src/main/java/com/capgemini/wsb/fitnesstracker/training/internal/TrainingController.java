@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -34,14 +34,14 @@ public class TrainingController {
     }
 
     @GetMapping("/finished/{afterTime}")
-    public List<TrainingDto> getTrainingsAfterDate(@PathVariable LocalDate afterTime) {
+    public List<TrainingDto> getTrainingsAfterDate(@PathVariable Date afterTime) {
         return trainingService.findAllTrainingsAfterDate(afterTime)
                 .stream()
                 .map(trainingMapper::toDto)
                 .toList();
     } // wyszukiwanie wszystkich treningów zakończonych (po konkretnej zdefiniowanej dacie)
 
-    @GetMapping("/finished/activityType")
+    @GetMapping("/activityType")
     public List<TrainingDto> getTrainingsByActivity(@RequestParam ActivityType type) {
         return trainingService.findAllTrainingsByActivityType(type)
                 .stream()
@@ -52,15 +52,14 @@ public class TrainingController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public TrainingDto addTraining(@RequestBody TrainingDto trainingDto) throws InterruptedException {
-        Training training = trainingMapper.toEntity(trainingDto);
-        Training createdTraining = trainingService.createTraining(training);
+    public TrainingDto addTraining(@RequestBody TrainingUserIdDto newTrainingDto) {
+        Training createdTraining = trainingService.createTraining(newTrainingDto);
         return trainingMapper.toDto(createdTraining);
     } // utworzenie nowego treningu
 
 
     @PutMapping("/{trainingId}")
-    public void updateTrainingById(@PathVariable Long trainingId, @RequestBody TrainingUpdateDto updateTrainingDto) {
+    public void updateTrainingById(@PathVariable Long trainingId, @RequestBody TrainingUserIdDto updateTrainingDto) {
         trainingService.updateTrainingById(trainingId, updateTrainingDto);
     } // aktualizacja treningu (dowolnie wybrane pole np. dystans)
 
