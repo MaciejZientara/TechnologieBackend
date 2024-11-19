@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -16,6 +18,8 @@ public class TrainingController {
     private final TrainingServiceImpl trainingService;
 
     private final TrainingMapper trainingMapper;
+
+    SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
 
     @GetMapping
     public List<TrainingDto> getAllTrainings() {
@@ -34,8 +38,15 @@ public class TrainingController {
     }
 
     @GetMapping("/finished/{afterTime}")
-    public List<TrainingDto> getTrainingsAfterDate(@PathVariable Date afterTime) {
-        return trainingService.findAllTrainingsAfterDate(afterTime)
+    public List<TrainingDto> getTrainingsAfterDate(@PathVariable String afterTime) {
+        Date afterTimeDate = null;
+        try {
+            afterTimeDate = dateFormatter.parse(afterTime);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+        return trainingService.findAllTrainingsAfterDate(afterTimeDate)
                 .stream()
                 .map(trainingMapper::toDto)
                 .toList();
