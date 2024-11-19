@@ -42,8 +42,8 @@ public class TrainingController {
     } // wyszukiwanie wszystkich treningów zakończonych (po konkretnej zdefiniowanej dacie)
 
     @GetMapping("/activityType")
-    public List<TrainingDto> getTrainingsByActivity(@RequestParam ActivityType type) {
-        return trainingService.findAllTrainingsByActivityType(type)
+    public List<TrainingDto> getTrainingsByActivity(@RequestParam ActivityType activityType) {
+        return trainingService.findAllTrainingsByActivityType(activityType)
                 .stream()
                 .map(trainingMapper::toDto)
                 .toList();
