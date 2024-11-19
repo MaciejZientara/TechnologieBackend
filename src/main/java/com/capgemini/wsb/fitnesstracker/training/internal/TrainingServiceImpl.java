@@ -4,6 +4,7 @@ import com.capgemini.wsb.fitnesstracker.training.api.Training;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingProvider;
 import com.capgemini.wsb.fitnesstracker.training.api.TrainingService;
 import com.capgemini.wsb.fitnesstracker.user.api.User;
+import com.capgemini.wsb.fitnesstracker.user.api.UserProvider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class TrainingServiceImpl implements TrainingProvider, TrainingService {
 
     private final TrainingRepository trainingRepository;
+    private final UserProvider userProvider;
 
     @Override
     public Optional<User> getTraining(final Long trainingId) {
@@ -47,9 +49,9 @@ public class TrainingServiceImpl implements TrainingProvider, TrainingService {
 
     @Override
     public Training createTraining(TrainingUserIdDto newTrainingDto) {
-//        User user = getUserById(updateTrainingDto.userId());
+        User usr = userProvider.getUserById(newTrainingDto.userId()).orElseThrow(() -> new IllegalArgumentException("User not found!"));
         Training newTraining = new Training(
-                null,
+                usr,
                 newTrainingDto.startTime(),
                 newTrainingDto.endTime(),
                 newTrainingDto.activityType(),
@@ -60,10 +62,10 @@ public class TrainingServiceImpl implements TrainingProvider, TrainingService {
 
     @Override
     public void updateTrainingById(Long trainingId, TrainingUserIdDto updateTrainingDto) {
+        User usr = userProvider.getUserById(updateTrainingDto.userId()).orElseThrow(() -> new IllegalArgumentException("User not found!"));
         Training trainingRef = trainingRepository.getReferenceById(trainingId);
-//        User user = getUserById(updateTrainingDto.userId());
         trainingRef.updateTraining(
-                null,
+                usr,
                 updateTrainingDto.startTime(),
                 updateTrainingDto.endTime(),
                 updateTrainingDto.activityType(),

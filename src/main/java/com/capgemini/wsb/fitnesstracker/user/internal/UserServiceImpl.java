@@ -5,6 +5,7 @@ import com.capgemini.wsb.fitnesstracker.user.api.UserProvider;
 import com.capgemini.wsb.fitnesstracker.user.api.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ import java.util.Optional;
 @Slf4j
 class UserServiceImpl implements UserService, UserProvider {
 
+    @Autowired
     private final UserRepository userRepository;
 
     /**
@@ -112,5 +114,8 @@ class UserServiceImpl implements UserService, UserProvider {
 
         userRepository.save(userRef);
     }
+
+    @Override
+    public Optional<User> getUserById(final long id){ return userRepository.findById(id); }
 
 }

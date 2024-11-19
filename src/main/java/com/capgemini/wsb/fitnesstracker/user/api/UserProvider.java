@@ -40,6 +40,14 @@ public interface UserProvider {
     List<User> getUsersByEmail(final String email);
 
     /**
+     * Retrieves user who have the specified ID.
+     *
+     * @param id The ID to search for user
+     * @return An {@link Optional} containing the located user, or {@link Optional#empty()} if not found
+     */
+    Optional<User> getUserById(final long id);
+
+    /**
      * Retrieves all users who were born before the specified date.
      *
      * @param time The date to compare users' birth dates against
