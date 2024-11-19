@@ -61,7 +61,7 @@ public class TrainingServiceImpl implements TrainingProvider, TrainingService {
     }
 
     @Override
-    public void updateTrainingById(Long trainingId, TrainingUserIdDto updateTrainingDto) {
+    public Training updateTrainingById(Long trainingId, TrainingUserIdDto updateTrainingDto) {
         User usr = userProvider.getUserById(updateTrainingDto.userId()).orElseThrow(() -> new IllegalArgumentException("User not found!"));
         Training trainingRef = trainingRepository.getReferenceById(trainingId);
         trainingRef.updateTraining(
@@ -72,6 +72,7 @@ public class TrainingServiceImpl implements TrainingProvider, TrainingService {
                 updateTrainingDto.distance(),
                 updateTrainingDto.averageSpeed());
         trainingRepository.save(trainingRef);
+        return trainingRef;
     }
 
 }

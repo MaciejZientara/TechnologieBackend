@@ -6,5 +6,5 @@ public interface TrainingService {
 
     Training createTraining(TrainingUserIdDto newTrainingDto);
 
-    void updateTrainingById(Long trainingId, TrainingUserIdDto updateTrainingDto);
+    Training updateTrainingById(Long trainingId, TrainingUserIdDto updateTrainingDto);
 }

@@ -70,8 +70,8 @@ public class TrainingController {
 
 
     @PutMapping("/{trainingId}")
-    public void updateTrainingById(@PathVariable Long trainingId, @RequestBody TrainingUserIdDto updateTrainingDto) {
-        trainingService.updateTrainingById(trainingId, updateTrainingDto);
+    public TrainingDto updateTrainingById(@PathVariable Long trainingId, @RequestBody TrainingUserIdDto updateTrainingDto) {
+        return trainingMapper.toDto(trainingService.updateTrainingById(trainingId, updateTrainingDto));
     } // aktualizacja treningu (dowolnie wybrane pole np. dystans)
 
 }
