@@ -199,6 +199,182 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Tranings",
+			"item": [
+				{
+					"name": "get_all_trainings",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add_training",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1,\r\n  \"startTime\": \"2022-04-01T10:00:00\",\r\n  \"endTime\": \"2022-04-01T11:00:00\",\r\n  \"activityType\": \"RUNNING\",\r\n  \"distance\": 5,\r\n  \"averageSpeed\": 5\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_trainings_by_activity_type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/activityType?activityType=RUNNING",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"activityType"
+							],
+							"query": [
+								{
+									"key": "activityType",
+									"value": "RUNNING"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_trainings_after_time",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/finished/{{time}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"finished",
+								"{{time}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update_training",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"id\": 1,\r\n\"userId\": 1,\r\n\"startTime\": \"2022-04-01T10:00:00\",\r\n\"endTime\": \"2022-04-01T11:00:00\",\r\n\"activityType\": \"RUNNING\",\r\n\"distance\": 5.0,\r\n\"averageSpeed\": 5.0\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/{{training_id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"{{training_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_trainings_by_user_id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/v1/trainings/{{id}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"v1",
+								"trainings",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
 		}
 	],
 	"variable": [
@@ -211,6 +387,11 @@
 			"key": "id",
 			"value": "",
 			"type": "default"
+		},
+		{
+			"key": "training_id",
+			"value": "",
+			"type": "string"
 		}
 	]
 }
