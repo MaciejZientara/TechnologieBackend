@@ -15,6 +15,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+/**
+ * Component responsible for sending email summaries of user training data.
+ * Emails are sent monthly to all users with registered email addresses.
+ */
 @Component
 @EnableScheduling
 @RequiredArgsConstructor
@@ -26,6 +30,12 @@ public class EmailSender {
     private final TrainingProvider trainingProvider;
     private final UserProvider userProvider;
 
+    /**
+     * Sends a simple email message to the specified recipient.
+     *
+     * @param to   recipient's email address
+     * @param text content of the email
+     */
     private void sendEmail(String to, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("training@FitnessTracker.com");
@@ -35,6 +45,10 @@ public class EmailSender {
         emailSender.send(message);
     }
 
+    /**
+     * Scheduled task that sends monthly training summaries to all users.
+     * Each user receives an email with the total number of their trainings.
+     */
     @Scheduled(cron = "@monthly")
     public void emailSender() {
         List<User> allUsers = userProvider.findAllUsers();
